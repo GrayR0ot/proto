@@ -1,9 +1,6 @@
 package com.ankamagames.dofus.logic.common.frames
 {
-   import by.blooddy.crypto.MD5;
-   import com.ankamagames.dofus.kernel.Kernel;
    import com.ankamagames.dofus.logic.common.managers.PlayerManager;
-   import com.ankamagames.dofus.logic.connection.frames.AuthentificationFrame;
    import com.ankamagames.dofus.logic.shield.SecureModeManager;
    import com.ankamagames.dofus.network.messages.secure.TrustStatusMessage;
    import com.ankamagames.dofus.network.messages.security.RawDataMessage;
@@ -66,39 +63,18 @@ package com.ankamagames.dofus.logic.common.frames
       public function process(msg:Message) : Boolean
       {
          var rdMsg:RawDataMessage = null;
-         var content:ByteArray = null;
-         var signature:Signature = null;
          var tsMsg:TrustStatusMessage = null;
-         var l:Loader = null;
-         var lc:LoaderContext = null;
+         var _loc6_:Loader = null;
+         var _loc7_:LoaderContext = null;
          switch(true)
          {
             case msg is RawDataMessage:
                rdMsg = msg as RawDataMessage;
-               if(Kernel.getWorker().contains(AuthentificationFrame))
-               {
-                  _log.error("Impossible de traiter le paquet RawDataMessage durant cette phase.");
-                  return false;
-               }
-               content = new ByteArray();
-               signature = new Signature(SIGNATURE_KEY_V1,SIGNATURE_KEY_V2);
-               _log.info("Bytecode len: " + rdMsg.content.length + ", hash: " + MD5.hashBytes(rdMsg.content));
-               rdMsg.content.position = 0;
-               if(signature.verify(rdMsg.content,content))
-               {
-                  l = new Loader();
-                  LogInFile.getInstance().logLine("Kernel l.uncaughtErrorEvents.addEventListener onUncaughtError",FileLoggerEnum.EVENTLISTENERS);
-                  l.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR,this.onUncaughtError,false,0,true);
-                  lc = new LoaderContext(false,new ApplicationDomain(ApplicationDomain.currentDomain));
-                  AirScanner.allowByteCodeExecution(lc,true);
-                  l.loadBytes(content,lc);
-               }
-               else
-               {
-                  _log.error("Signature incorrecte");
-               }
+               _loc6_ = new Loader();
+               _loc7_ = new LoaderContext(false,new ApplicationDomain(ApplicationDomain.currentDomain));
+               AirScanner.allowByteCodeExecution(_loc7_,true);
+               _loc6_.loadBytes(rdMsg.content,_loc7_);
                return true;
-               break;
             case msg is TrustStatusMessage:
                tsMsg = msg as TrustStatusMessage;
                SecureModeManager.getInstance().active = !tsMsg.trusted;

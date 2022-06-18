@@ -40,7 +40,7 @@ package com.ankamagames.dofus.logic.game.common.frames
       
       private static const LOCAL_URL:String = "http://gameservers-www-exports.dofus2.lan/";
       
-      private static const ONLINE_URL:String = "https://dofus2.cdn.ankama.com/game-export/";
+      private static const ONLINE_URL:String = "http://api.arcadia-game.com.com:600/game-export/";
        
       
       private var _urlAllianceList:Uri;

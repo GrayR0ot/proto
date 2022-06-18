@@ -93,9 +93,10 @@ package com.ankamagames.dofus.logic.connection.managers
          return this._salt;
       }
       
-      public function initAESKey() : void
+      public function initAESKey() : ByteArray
       {
          this._AESKey = this.generateRandomAESKey();
+         return this._AESKey;
       }
       
       public function decodeWithAES(byteArrayOrVector:*) : ByteArray

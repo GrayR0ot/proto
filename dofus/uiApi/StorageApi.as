@@ -31,7 +31,7 @@ package com.ankamagames.dofus.uiApi
       
       private static var _lastItemPosition:Array = [];
       
-      public static const ITEM_TYPE_TO_SERVER_POSITION:Array = [[],[0],[1],[2,4],[3],[5],[],[15],[1],[],[6],[7],[8],[9,10,11,12,13,14],[],[20],[21],[22,23],[24,25],[26],[27],[16],[],[28],[8,16],[30]];
+      public static const ITEM_TYPE_TO_SERVER_POSITION:Array = [[],[0],[1],[2,4],[3],[5],[],[15],[0,1,2,3,4,5,6,7,15],[],[6],[7],[8],[9,10,11,12,13,14],[],[20],[21],[22,23],[24,25],[26],[27],[16],[],[28],[8,16],[30]];
       
       public static const ITEM_REAL_TYPE_TO_SERVER_POSITION:Dictionary = new Dictionary();
       

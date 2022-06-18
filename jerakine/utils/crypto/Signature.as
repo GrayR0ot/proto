@@ -121,45 +121,15 @@ package com.ankamagames.jerakine.utils.crypto
          throw new SignatureError("Invalid header",SignatureError.INVALID_HEADER);
       }
       
-      private function verifyV1Signature(input:IDataInput, output:ByteArray) : Boolean
+      private function verifyV1Signature(param1:IDataInput, param2:ByteArray) : Boolean
       {
-         var len:uint = 0;
-         var formatVersion:uint = input.readShort();
-         var sigData:ByteArray = new ByteArray();
-         var decryptedHash:ByteArray = new ByteArray();
-         try
-         {
-            len = input.readInt();
-            input.readBytes(sigData,0,len);
-         }
-         catch(e:Error)
-         {
-            throw new SignatureError("Invalid signature format, not enough data.",SignatureError.INVALID_SIGNATURE);
-         }
-         try
-         {
-            this._key.verify(sigData,decryptedHash,sigData.length);
-         }
-         catch(e:Error)
-         {
-            return false;
-         }
-         decryptedHash.position = 0;
-         var ramdomPart:int = decryptedHash.readByte();
-         var hash:ByteArray = new ByteArray();
-         for(var i:uint = 2; i < decryptedHash.length; i++)
-         {
-            decryptedHash[i] ^= ramdomPart;
-         }
-         var contentLen:int = decryptedHash.readUnsignedInt();
-         var testedContentLen:int = input.bytesAvailable;
-         var signHash:String = decryptedHash.readUTFBytes(decryptedHash.bytesAvailable).substr(1);
-         input.readBytes(output);
-         var tH:Number = getTimer();
-         var contentHash:String = MD5.hash(output.readUTFBytes(output.bytesAvailable)).substr(1);
-         output.position = 0;
-         var result:Boolean = signHash && signHash == contentHash && contentLen == testedContentLen;
-         return result;
+         /*
+          * Erreur de décompilation
+          * Le code est probablement obsfusqué
+          * La désobfuscation est activé mais la décompilation ne l'est pas. Si le fichier n'est pas crypté, désactivez la "désobfuscation automatique" pour de meilleurs résultats.
+          * Type d'erreur: ArrayIndexOutOfBoundsException (Index -1 out of bounds for length 55)
+          */
+         throw new flash.errors.IllegalOperationError("Non décompilé car il y a des erreurs");
       }
       
       private function verifyV2Signature(input:IDataInput, output:ByteArray, headerPosition:int) : Boolean

@@ -64,6 +64,8 @@ package com.ankamagames.dofus.internalDatacenter.items
       private static var _uniqueIndex:int;
       
       private static var cosmecticWrapperBlueBorderUri:Uri = null;
+      
+      private static const ITEMS_MULTI_USE:Array = [31055,31056,31057,31058,31059,31060,683,684,686,795,796,797,798,799,800,801,802,803,804,805,806,807,808,809,810,811,812,814,815,816,817];
        
       
       private var _uriPngMode:Uri;
@@ -997,6 +999,7 @@ package com.ankamagames.dofus.internalDatacenter.items
          {
             this.isOkForMultiUse = false;
          }
+         this.updateMultiUse();
       }
       
       public function get itemHoldsLegendaryPower() : Boolean
@@ -1084,6 +1087,14 @@ package com.ankamagames.dofus.internalDatacenter.items
             }
          }
          return false;
+      }
+      
+      private function updateMultiUse() : void
+      {
+         if(ITEMS_MULTI_USE.indexOf(this.objectGID) != -1)
+         {
+            this.isOkForMultiUse = true;
+         }
       }
    }
 }
